@@ -218,8 +218,9 @@ public class DoubledLinkedList<ObjectType> extends AbstractSequentialList<Object
     }
 
     public void printAll() {
-        for (ObjectType objectType : this) {
-            System.out.println(objectType);
-        }
+        System.out.println("Все значения:");
+        if (this.size > 0) {
+            for (ObjectType objectType : this) { System.out.println(objectType); }
+        } else { System.out.println("Элементов нет"); }
     }
 }

@@ -40,9 +40,10 @@ public class DoubledLinkedList<ObjectType> extends AbstractSequentialList<Object
             private Node<ObjectType> last = null;
             private int cursor = index;
 
-
             @Override
-            public boolean hasNext() { return cursor != index; }
+            public boolean hasNext() {
+                return cursor < size;
+            }
 
             @Override
             public ObjectType next() {
@@ -51,13 +52,14 @@ public class DoubledLinkedList<ObjectType> extends AbstractSequentialList<Object
                 }
                 last = current;
                 ObjectType data = current.data;
+                current = current.next;
                 cursor++;
                 return data;
             }
 
             @Override
             public boolean hasPrevious() {
-                return cursor != 0;
+                return cursor > 0;
             }
 
             @Override
@@ -65,7 +67,6 @@ public class DoubledLinkedList<ObjectType> extends AbstractSequentialList<Object
                 if (!hasPrevious()) {
                     throw new NoSuchElementException();
                 }
-
                 current = (current == null) ? tail : current.previous;
                 last = current;
                 cursor--;
@@ -84,9 +85,7 @@ public class DoubledLinkedList<ObjectType> extends AbstractSequentialList<Object
 
             @Override
             public void remove() {
-                if (last == null) {
-                    throw new NoSuchElementException();
-                }
+                if (last == null) { throw new NoSuchElementException(); }
                 DoubledLinkedList.this.remove(last.data);
                 last = null;
             }
@@ -94,20 +93,26 @@ public class DoubledLinkedList<ObjectType> extends AbstractSequentialList<Object
             @Override
             public void set(ObjectType objectType) {
                 if (last == null) {
-                    throw new NoSuchElementException();
+                    throw new IllegalStateException();
                 }
                 last.data = objectType;
             }
 
             @Override
             public void add(ObjectType objectType) {
-                if (cursor == size) { DoubledLinkedList.this.add(objectType); }
-                else {
+                if (cursor == size) {
+                    DoubledLinkedList.this.add(objectType);
+                } else {
                     Node<ObjectType> newNode = new Node<>(objectType, current.previous, current);
-                    if (current.previous != null) { current.previous.next = newNode; }
-                    current.previous = newNode;
-
-                    if (current == head) { head = newNode; }
+                    if (current.previous != null) {
+                        current.previous.next = newNode;
+                    }
+                    if (current != null) {
+                        current.previous = newNode;
+                    }
+                    if (current == head) {
+                        head = newNode;
+                    }
                     size++;
                 }
                 cursor++;
@@ -119,11 +124,32 @@ public class DoubledLinkedList<ObjectType> extends AbstractSequentialList<Object
     @Override
     public boolean add(ObjectType objectType) {
         Node<ObjectType> newNode = new Node<>(objectType, tail, null);
-        if (tail == null) { head = newNode; }
-        else { tail.next = newNode; }
+        if (tail == null) {
+            head = newNode;
+        } else {
+            tail.next = newNode;
+        }
         tail = newNode;
         size++;
         return true;
+    }
+
+    public void add(int index, ObjectType objectType) {
+        if (index < 0 || index > size) { throw new IndexOutOfBoundsException("Out of bounds: " + index); }
+        if (index == size) {
+            add(objectType);
+        } else {
+            Node<ObjectType> successor = getNode(index);
+            Node<ObjectType> predecessor = successor.previous;
+            Node<ObjectType> newNode = new Node<>(objectType, predecessor, successor);
+            if (predecessor != null) {
+                predecessor.next = newNode;
+            } else {
+                head = newNode;
+            }
+            successor.previous = newNode;
+            size++;
+        }
     }
 
     @Override
@@ -159,20 +185,20 @@ public class DoubledLinkedList<ObjectType> extends AbstractSequentialList<Object
         return oldValue;
     }
 
-    // TODO: add insert(index) method
-
     private void removeLink(Node<ObjectType> node) {
         Node<ObjectType> previous = node.previous;
         Node<ObjectType> next = node.next;
 
-        if (previous == null) { head = next; }
-        else {
+        if (previous == null) {
+            head = next;
+        } else {
             previous.next = next;
             node.previous = null;
         }
 
-        if (next == null) { tail = previous; }
-        else {
+        if (next == null) {
+            tail = previous;
+        } else {
             next.previous = previous;
             node.next = null;
         }
@@ -182,11 +208,14 @@ public class DoubledLinkedList<ObjectType> extends AbstractSequentialList<Object
     }
 
     private Node<ObjectType> getNode(int index) {
-        if (index < 0 || index >= size) { throw new IndexOutOfBoundsException("Out of bounds: " + index); }
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Out of bounds: " + index);
+        }
 
         Node<ObjectType> node = head;
-
-        for (int i = 0; i < index; i++) { node = node.next; }
+        for (int i = 0; i < index; i++) {
+            node = node.next;
+        }
         return node;
     }
 }

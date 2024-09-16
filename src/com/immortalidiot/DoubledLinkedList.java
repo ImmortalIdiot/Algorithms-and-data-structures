@@ -6,7 +6,7 @@ import java.util.NoSuchElementException;
 
 public class DoubledLinkedList<ObjectType> extends AbstractSequentialList<ObjectType> {
 
-    static class Node<E> {
+    private static class Node<E> {
         E data;
         Node<E> previous;
         Node<E> next;

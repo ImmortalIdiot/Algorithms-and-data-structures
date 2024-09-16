@@ -50,7 +50,7 @@ public class Main {
 
         System.out.println("1 элемент: " + doubledLinkedList.getElement(1));
 
-        doubledLinkedList.remove((doubledLinkedList.size() - 1));
+        doubledLinkedList.removeLast();
         doubledLinkedList.printAll();
 
         while (doubledLinkedList.listIterator().hasNext()) {

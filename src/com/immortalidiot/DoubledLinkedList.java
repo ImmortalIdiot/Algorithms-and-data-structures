@@ -216,4 +216,10 @@ public class DoubledLinkedList<ObjectType> extends AbstractSequentialList<Object
         }
         return node;
     }
+
+    public void printAll() {
+        for (ObjectType objectType : this) {
+            System.out.println(objectType);
+        }
+    }
 }

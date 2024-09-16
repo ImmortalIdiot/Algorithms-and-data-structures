@@ -168,13 +168,11 @@ public class DoubledLinkedList<ObjectType> extends AbstractSequentialList<Object
         return getNode(index).data;
     }
 
-    public ObjectType setValue(ObjectType value, int index) {
+    public void setValue(ObjectType value, int index) {
         if (index < 0 || index >= size) { throw new IndexOutOfBoundsException("Out of bounds: " + index); }
 
         Node<ObjectType> node = getNode(index);
-        ObjectType oldValue = node.data;
         node.data = value;
-        return oldValue;
     }
 
     public ObjectType remove(int index) {

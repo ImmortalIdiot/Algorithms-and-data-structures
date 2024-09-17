@@ -2,61 +2,61 @@ package com.immortalidiot;
 
 public class Main {
     public static void main(String[] args) {
-        checkWithMinionType();
-    }
+        Minion minion1 = new Minion("Bob", 25);
+        Minion minion2 = new Minion("Kevin", 14);
+        Minion minion3 = new Minion("Stuart", 7);
+        Minion minion4 = new Minion("Gleb", 3);
+        Minion minion5 = new Minion("Fixer", 1);
 
-    private static void checkWithMinionType() {
-        DoubledLinkedList<Minion> minions = new DoubledLinkedList<>();
-        minions.printAll();
+        DoubledLinkedList<Minion> list = new DoubledLinkedList<>();
 
-        Minion minion = new Minion("Cферик", 2);
-        Minion otherMinion = new Minion("Глеб", 4);
+        list.insertHead(minion1);
+        list.insertTail(minion2);
+        list.insertHead(minion3);
+        list.insertTail(minion4);
+        list.insertTail(minion5);
 
-        minions.add(new Minion("Фиксик", 15));
-        System.out.println("Добавлен миньон " + minions.getLast());
-        minions.add(minion);
-        System.out.println("Добавлен миньон " + minions.getLast());
-        minions.add(new Minion("Псиныч", 11));
-        System.out.println("Добавлен миньон " + minions.getLast());
+        System.out.println("Размер списка: " + list.size());
+        System.out.println("Ожидалось: 5");
 
-        minions.printAll();
-        System.out.println("Изменяем " + minions.getElement(1) + " на " + otherMinion);
-        minions.setValue(otherMinion, 1);
-        minions.printAll();
+        System.out.println("Первый элемент (next): " + list.next());
+        System.out.println("Ожидалось: " + minion3);
 
-        System.out.println("Удаляем " + otherMinion);
-        minions.remove(otherMinion);
-        minions.printAll();
-    }
+        System.out.println("Последний элемент (previous): " + list.previous());
+        System.out.println("Ожидалось: " + minion5);
 
-    private static void checkWithStringType() {
-        DoubledLinkedList<String> doubledLinkedList = new DoubledLinkedList<>();
-        doubledLinkedList.printAll();
+        System.out.println("Элемент по индексу 0: " + list.getElement(0));
+        System.out.println("Ожидалось: " + minion3);
 
+        System.out.println("Элемент по индексу 4: " + list.getElement(4));
+        System.out.println("Ожидалось: " + minion5);
 
-        doubledLinkedList.add("Один");
-        System.out.println("Добавлен элемент " + doubledLinkedList.getLast());
-        doubledLinkedList.add("Два");
-        System.out.println("Добавлен элемент " + doubledLinkedList.getLast());
-        doubledLinkedList.add(2, "Три");
-        System.out.println("Добавлен элемент по индексу 2" + doubledLinkedList.getElement(2));
+        list.setValue(new Minion("Тим", 2), 0); // Заменяем m3 на Тим
+        System.out.println("После замены элемента по индексу 0: " + list.getElement(0));
+        System.out.println("Ожидалось: " + new Minion("Тим", 2));
 
-        System.out.println("Размер - " + doubledLinkedList.size());
+        // Проверяем replaceFirst и replaceLast
+        list.replaceFirst(new Minion("Грю", 1)); // Заменяем m1 на Грю
+        list.replaceLast(new Minion("Мел", 1)); // Заменяем m5 на Мел
+        System.out.println("Первый элемент после замены (next): " + list.next());
+        System.out.println("Ожидалось: " + new Minion("Грю", 1));
 
-        doubledLinkedList.printAll();
+        System.out.println("Последний элемент после замены (previous): " + list.previous());
+        System.out.println("Ожидалось: " + new Minion("Мел", 1));
 
-        doubledLinkedList.setValue("Четыре", 2);
-        doubledLinkedList.printAll();
+        list.replace(new Minion("Грю", 1), new Minion("Эд", 2)); // Заменяем Грю на Эд
+        System.out.println("Элемент по индексу 1 после замены: " + list.getElement(1));
+        System.out.println("Ожидалось: " + new Minion("Эд", 2));
 
-        System.out.println("1 элемент: " + doubledLinkedList.getElement(1));
+        list.removeFirst();
+        System.out.println("Элемент по индексу 0 после удаления первого: " + list.getElement(0));
+        System.out.println("Ожидалось: " + new Minion("Эд", 2));
 
-        doubledLinkedList.removeLast();
-        doubledLinkedList.printAll();
+        list.removeLast();
+        System.out.println("Элемент по индексу 2 после удаления последнего: " + list.getElement(2));
+        System.out.println("Ожидалось: " + new Minion("Эд", 2));
 
-        while (doubledLinkedList.listIterator().hasNext()) {
-            doubledLinkedList.remove(doubledLinkedList.listIterator().next());
-        }
-
-        doubledLinkedList.printAll();
+        System.out.println("Размер списка после удалений: " + list.size());
+        System.out.println("Ожидалось: 3");
     }
 }

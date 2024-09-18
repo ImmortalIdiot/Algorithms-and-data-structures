@@ -5,7 +5,7 @@ public class Main {
         Minion minion1 = new Minion("Bob", 25);
         Minion minion2 = new Minion("Kevin", 14);
         Minion minion3 = new Minion("Stuart", 7);
-        Minion minion4 = new Minion("Gleb", 3);
+        Minion minion4 = new Minion("Rayan", 3);
         Minion minion5 = new Minion("Fixer", 1);
 
         DoubledLinkedList<Minion> list = new DoubledLinkedList<>();
@@ -22,34 +22,29 @@ public class Main {
 
         System.out.println("Размер");
         System.out.println(list.size());
-        System.out.println();
+        System.out.println();t
 
-//        System.out.println("Первый и последний");
-//        System.out.println(list.getFirst());
-//        System.out.println(list.getLast());
-//        System.out.println();
-
-        System.out.println("Заменённый первый");
+        System.out.println("Заменяем первый");
         list.replaceFirst(new Minion("Максим", 2));
         list.printList();
         System.out.println();
 
-        System.out.println("Заменённый последний");
+        System.out.println("Заменяем последний");
         list.replaceLast(new Minion("Никита", 1));
         list.printList();
         System.out.println();
 
-        System.out.println("Заменённый Stuart");
-        list.replace(new Minion("Stuart", 7), new Minion("Глеб", 5));
+        System.out.println("Заменяем Bob");
+        list.replace(minion1, new Minion("Глеб", 25));
         list.printList();
         System.out.println();
 
-        System.out.println("Удалён первый");
+        System.out.println("Удаляем первый");
         list.removeFirst();
         list.printList();
         System.out.println();
 
-        System.out.println("Удалён последний");
+        System.out.println("Удаляем последний");
         list.removeLast();
         list.printList();
         System.out.println();

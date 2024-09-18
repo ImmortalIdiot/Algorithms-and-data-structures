@@ -16,34 +16,45 @@ public class Main {
         list.insertTail(minion4);
         list.insertTail(minion5);
 
-        System.out.println("Размер списка: " + list.size());
+        System.out.println("Весь список");
+        list.printList();
+        System.out.println();
 
-        System.out.println("Первый элемент (next): " + list.next());
-        System.out.println("Ожидалось: " + minion3);
+        System.out.println("Размер");
+        System.out.println(list.size());
+        System.out.println();
 
-        System.out.println("Последний элемент (previous): " + list.previous());
-        System.out.println("Ожидалось: " + minion5);
+//        System.out.println("Первый и последний");
+//        System.out.println(list.getFirst());
+//        System.out.println(list.getLast());
+//        System.out.println();
 
-        System.out.println("Первый элемент: " + list.getFirst());
+        System.out.println("Заменённый первый");
+        list.replaceFirst(new Minion("Максим", 2));
+        list.printList();
+        System.out.println();
 
-        System.out.println("Последний элемент: " + list.getLast());
+        System.out.println("Заменённый последний");
+        list.replaceLast(new Minion("Никита", 1));
+        list.printList();
+        System.out.println();
 
-        list.replaceFirst(new Minion("Тим", 2));
-        System.out.println("Новый первый элемент " + list.getFirst());
+        System.out.println("Заменённый Stuart");
+        list.replace(new Minion("Stuart", 7), new Minion("Глеб", 5));
+        list.printList();
+        System.out.println();
 
-        list.replaceLast(new Minion("Мел", 1)); // Заменяем m5 на Мел
-        System.out.println("Последний элемент после замены: " + list.getLast());
-
-        System.out.println("Последний элемент после замены (previous): " + list.previous());
-
-        list.replace(new Minion("Грю", 1), new Minion("Эд", 2)); // Заменяем Грю на Эд
-
+        System.out.println("Удалён первый");
         list.removeFirst();
-        System.out.println("Первый элемент после удаления первого: " + list.getFirst());
+        list.printList();
+        System.out.println();
 
+        System.out.println("Удалён последний");
         list.removeLast();
-        System.out.println("Последний элемент после удаления последнего: " + list.getLast());
+        list.printList();
+        System.out.println();
 
-        System.out.println("Размер списка после удалений: " + list.size());
+        System.out.println();
+        System.out.println("Размер после удаления\n" + list.size());
     }
 }

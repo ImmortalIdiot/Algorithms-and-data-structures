@@ -26,18 +26,6 @@ public class DoubledLinkedList<ObjectType> {
         this.size = 0;
     }
 
-    private Node<ObjectType> getNode(int index) {
-        if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException("Out of bounds: " + index);
-        }
-
-        Node<ObjectType> node = head;
-        for (int i = 0; i < index; i++) {
-            node = node.next;
-        }
-        return node;
-    }
-
     public int size() { return size; }
 
     public ObjectType next() {

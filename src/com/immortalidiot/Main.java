@@ -22,7 +22,7 @@ public class Main {
 
         System.out.println("Размер");
         System.out.println(list.size());
-        System.out.println();t
+        System.out.println();
 
         System.out.println("Заменяем первый");
         list.replaceFirst(new Minion("Максим", 2));

@@ -122,4 +122,12 @@ public class DoubledLinkedList<ObjectType> {
     public ObjectType getLast() {
         return tail.data;
     }
+
+    public void printList() {
+        Node<ObjectType> current = head;
+        while (current != null) {
+            System.out.println(current.data);
+            current = current.next;
+        }
+    }
 }

@@ -4,7 +4,7 @@ import java.util.NoSuchElementException;
 
 public class DoubledLinkedList<ObjectType> {
 
-    private static class Node<ObjectType> {
+    public static class Node<ObjectType> {
         ObjectType data;
         Node<ObjectType> previous;
         Node<ObjectType> next;
@@ -13,6 +13,39 @@ public class DoubledLinkedList<ObjectType> {
             this.data = data;
             this.previous = null;
             this.next = null;
+        }
+    }
+
+    public class Iterator {
+        private Node<ObjectType> current;
+        private int index;
+
+        public Iterator() {
+            this.current = head;
+            this.index = 0;
+        }
+
+        public boolean hasNext() {
+            return current != null;
+        }
+
+        public boolean hasPrevious() {
+            return current != null && current.previous != null;
+        }
+
+        public ObjectType next() {
+            if (!hasNext()) { throw new NoSuchElementException("No next element"); }
+            ObjectType data = current.data;
+            current = current.next;
+            index++;
+            return data;
+        }
+
+        public ObjectType previous() {
+            if (!hasPrevious()) { throw new NoSuchElementException("No previous element"); }
+            current = current.previous;
+            index--;
+            return current.data;
         }
     }
 
@@ -28,22 +61,6 @@ public class DoubledLinkedList<ObjectType> {
 
     public int size() { return size; }
 
-    @SuppressWarnings("ClassEscapesDefinedScope")
-    public ObjectType next(Node<ObjectType> current) {
-        if (current == null || current.next == null) {
-            throw new NoSuchElementException("No next element");
-        }
-        return current.next.data;
-    }
-
-    @SuppressWarnings("ClassEscapesDefinedScope")
-    public ObjectType previous(Node<ObjectType> current) {
-        if (current == null || current.previous == null) {
-            throw new NoSuchElementException("No previous element");
-        }
-        return current.previous.data;
-    }
-
     public ObjectType getByIndex(int index) {
         if (index < 0 || index >= size) { throw new IndexOutOfBoundsException("Index out of bounds"); }
 
@@ -53,6 +70,42 @@ public class DoubledLinkedList<ObjectType> {
         }
 
         return current.data;
+    }
+
+    public void replaceAt(ObjectType newValue, int index) {
+        getNode(index).data = newValue;
+    }
+
+    public void removeByIndex(int index) {
+        if (index < 0 || index >= size) { throw new IndexOutOfBoundsException("Index out of bounds"); }
+
+        Node<ObjectType> removableNode = getNode(index);
+
+        if (removableNode == head) {
+            head = removableNode.next;
+            if (head != null) { head.previous = null; }
+        } else if (removableNode == tail) {
+            tail = removableNode.previous;
+            if (tail != null) { tail.next = null; }
+        } else {
+            removableNode.previous.next = removableNode.next;
+            removableNode.next.previous = removableNode.previous;
+        }
+
+        size--;
+
+        if (size == 0) { head = null; tail = null; }
+    }
+
+    private Node<ObjectType> getNode(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Index out of bounds");
+        }
+        Node<ObjectType> current = head;
+        for (int i = 0; i < index; i++) {
+            current = current.next;
+        }
+        return current;
     }
 
     public void insertHead(ObjectType objectType) {

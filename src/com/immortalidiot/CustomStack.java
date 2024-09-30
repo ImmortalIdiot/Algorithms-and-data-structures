@@ -1,8 +1,9 @@
 package com.immortalidiot;
 
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class CustomStack<T> {
+public class CustomStack<T> implements Iterable<T> {
 
     private int size = 0;
     private static final int DEFAULT_CAPACITY = 5;
@@ -69,5 +70,27 @@ public class CustomStack<T> {
         T[] newStack = (T[]) new Object[newCapacity];
         System.arraycopy(stack, 0, newStack, 0, size);
         stack = newStack;
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new StackIterator();
+    }
+
+    private class StackIterator implements Iterator<T> {
+        private int index = size - 1;
+
+        @Override
+        public boolean hasNext() {
+            return index >= 0;
+        }
+
+        @Override
+        public T next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+            return stack[index--];
+        }
     }
 }

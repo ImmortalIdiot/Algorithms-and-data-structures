@@ -28,18 +28,20 @@ public class DoubledLinkedList<ObjectType> {
 
     public int size() { return size; }
 
-    public ObjectType next() {
-        if (head == null) {
-            throw new NoSuchElementException("List is empty");
+    @SuppressWarnings("ClassEscapesDefinedScope")
+    public ObjectType next(Node<ObjectType> current) {
+        if (current == null || current.next == null) {
+            throw new NoSuchElementException("No next element");
         }
-        return head.data;
+        return current.next.data;
     }
 
-    public ObjectType previous() {
-        if (tail == null) {
-            throw new NoSuchElementException("List is empty");
+    @SuppressWarnings("ClassEscapesDefinedScope")
+    public ObjectType previous(Node<ObjectType> current) {
+        if (current == null || current.previous == null) {
+            throw new NoSuchElementException("No previous element");
         }
-        return tail.data;
+        return current.previous.data;
     }
 
     public void insertHead(ObjectType objectType) {

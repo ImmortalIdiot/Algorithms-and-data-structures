@@ -97,6 +97,25 @@ public class DoubledLinkedList<ObjectType> {
         if (size == 0) { head = null; tail = null; }
     }
 
+    public void insertByIndex(int index, ObjectType insertable) {
+        if (index < 0 || index > size) { throw new IndexOutOfBoundsException("Index out of bounds"); }
+
+        if (index == 0) { insertHead(insertable); }
+        else if (index == size) { insertTail(insertable); }
+        else {
+            Node<ObjectType> newNode = new Node<>(insertable);
+            Node<ObjectType> current = getNode(index);
+            Node<ObjectType> previousNode = current.previous;
+
+            newNode.previous = previousNode;
+            newNode.next = current;
+            current.previous = newNode;
+
+            if (previousNode != null) { previousNode.next = newNode; }
+            size++;
+        }
+    }
+
     private Node<ObjectType> getNode(int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Index out of bounds");

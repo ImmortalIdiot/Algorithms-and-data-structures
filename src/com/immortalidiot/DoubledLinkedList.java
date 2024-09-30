@@ -4,7 +4,7 @@ import java.util.NoSuchElementException;
 
 public class DoubledLinkedList<ObjectType> {
 
-    public static class Node<ObjectType> {
+    private static class Node<ObjectType> {
         ObjectType data;
         Node<ObjectType> previous;
         Node<ObjectType> next;

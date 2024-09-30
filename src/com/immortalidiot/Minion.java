@@ -15,18 +15,18 @@ public class Minion {
 
     @Override
     public String toString() {
-        String eyeWord = (eyesCount == 1) ? "глазом" : "глазами";
+        String eyeWord = (eyesCount == 1) ? " глазом " : " глазами ";
 
         String yearWord;
         if (age % 10 == 1 && age % 100 != 11) {
-            yearWord = "год";
+            yearWord = " год";
         } else if (age % 10 >= 2 && age % 10 <= 4 && (age % 100 < 10 || age % 100 >= 20)) {
-            yearWord = "года";
+            yearWord = " года";
         } else {
-            yearWord = "лет";
+            yearWord = " лет";
         }
 
-        return "Миньон " + minionName + " с " + eyesCount + " " + eyeWord + " и возрастом " + age + " " + yearWord + ".";
+        return "Миньон " + minionName + " с " + eyesCount + eyeWord + "и возрастом " + age + yearWord;
     }
 
     public int compareTo(Minion otherMinion) {

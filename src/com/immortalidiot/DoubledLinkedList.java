@@ -147,12 +147,11 @@ public class DoubledLinkedList<ObjectType> {
         Node<ObjectType> newNode = new Node<>(objectType);
         if (tail == null) {
             head = newNode;
-            tail = newNode;
         } else {
             tail.next = newNode;
             newNode.previous = tail;
-            tail = newNode;
         }
+        tail = newNode;
         size++;
     }
 

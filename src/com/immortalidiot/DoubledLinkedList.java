@@ -25,13 +25,9 @@ public class DoubledLinkedList<ObjectType> {
             this.index = 0;
         }
 
-        public boolean hasNext() {
-            return current != null;
-        }
+        public boolean hasNext() { return current != null; }
 
-        public boolean hasPrevious() {
-            return current != null && current.previous != null;
-        }
+        public boolean hasPrevious() { return current != head && current != null; }
 
         public ObjectType next() {
             if (!hasNext()) { throw new NoSuchElementException("No next element"); }
@@ -117,9 +113,8 @@ public class DoubledLinkedList<ObjectType> {
     }
 
     private Node<ObjectType> getNode(int index) {
-        if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException("Index out of bounds");
-        }
+        if (index < 0 || index >= size) { throw new IndexOutOfBoundsException("Index out of bounds"); }
+
         Node<ObjectType> current = head;
         for (int i = 0; i < index; i++) {
             current = current.next;

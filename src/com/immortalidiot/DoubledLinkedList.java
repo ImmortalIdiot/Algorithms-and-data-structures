@@ -44,6 +44,17 @@ public class DoubledLinkedList<ObjectType> {
         return current.previous.data;
     }
 
+    public ObjectType getByIndex(int index) {
+        if (index < 0 || index >= size) { throw new IndexOutOfBoundsException("Index out of bounds"); }
+
+        Node<ObjectType> current = head;
+        for (int i = 0; i < index; i++) {
+            current = current.next;
+        }
+
+        return current.data;
+    }
+
     public void insertHead(ObjectType objectType) {
         Node<ObjectType> newNode = new Node<>(objectType);
         if (head == null) {

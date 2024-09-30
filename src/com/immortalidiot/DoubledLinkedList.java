@@ -18,31 +18,31 @@ public class DoubledLinkedList<ObjectType> {
 
     public class Iterator {
         private Node<ObjectType> current;
-        private int index;
 
         public Iterator() {
             this.current = head;
-            this.index = 0;
         }
 
         public boolean hasNext() { return current != null; }
 
-        public boolean hasPrevious() { return current != head && current != null; }
+        public boolean hasPrevious() { return current != null && current.previous != null; }
 
         public ObjectType next() {
             if (!hasNext()) { throw new NoSuchElementException("No next element"); }
             ObjectType data = current.data;
             current = current.next;
-            index++;
             return data;
         }
 
         public ObjectType previous() {
             if (!hasPrevious()) { throw new NoSuchElementException("No previous element"); }
             current = current.previous;
-            index--;
             return current.data;
         }
+    }
+
+    public Iterator iterator() {
+        return new Iterator();
     }
 
     private Node<ObjectType> head;

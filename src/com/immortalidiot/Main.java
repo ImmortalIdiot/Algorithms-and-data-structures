@@ -26,10 +26,10 @@ public class Main {
 
         System.out.println("\nВерхний элемент: " + minionStack.peek());
 
-        System.out.println("Итоговый список:");
         System.out.println("\nУдалён " + minionStack.pop());
         System.out.println("Удалён " + minionStack.pop() + "\n");
 
+        System.out.println("Итоговый список:");
         minionStack.printStack();
     }
 

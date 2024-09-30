@@ -58,7 +58,7 @@ public class DoubledLinkedList<ObjectType> {
     public int size() { return size; }
 
     public ObjectType getByIndex(int index) {
-        if (index < 0 || index >= size) { throw new IndexOutOfBoundsException("Index out of bounds"); }
+        indexValidation(index, true);
 
         Node<ObjectType> current = head;
         for (int i = 0; i < index; i++) {
@@ -73,7 +73,7 @@ public class DoubledLinkedList<ObjectType> {
     }
 
     public void removeByIndex(int index) {
-        if (index < 0 || index >= size) { throw new IndexOutOfBoundsException("Index out of bounds"); }
+        indexValidation(index, true);
 
         Node<ObjectType> removableNode = getNode(index);
 
@@ -94,7 +94,7 @@ public class DoubledLinkedList<ObjectType> {
     }
 
     public void insertByIndex(int index, ObjectType insertable) {
-        if (index < 0 || index > size) { throw new IndexOutOfBoundsException("Index out of bounds"); }
+        indexValidation(index, false);
 
         if (index == 0) { insertHead(insertable); }
         else if (index == size) { insertTail(insertable); }
@@ -113,13 +113,21 @@ public class DoubledLinkedList<ObjectType> {
     }
 
     private Node<ObjectType> getNode(int index) {
-        if (index < 0 || index >= size) { throw new IndexOutOfBoundsException("Index out of bounds"); }
+        indexValidation(index, true);
 
         Node<ObjectType> current = head;
         for (int i = 0; i < index; i++) {
             current = current.next;
         }
         return current;
+    }
+
+    private void indexValidation(int index, boolean inclusive) {
+        if (inclusive) {
+            if (index < 0 || index >= size) { throw new IndexOutOfBoundsException("Index out of bounds"); }
+        } else {
+            if (index < 0 || index > size) { throw new IndexOutOfBoundsException("Index out of bounds"); }
+        }
     }
 
     public void insertHead(ObjectType objectType) {

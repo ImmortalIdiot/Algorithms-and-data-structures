@@ -1,5 +1,8 @@
 package com.immortalidiot;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Main {
 
     static final Minion FIRST = new Minion("Bob", 2, 5);
@@ -10,6 +13,8 @@ public class Main {
 
     public static void main(String[] args) {
         testStack();
+        testIterator();
+        testComparator();
     }
 
     public static void testStack() {
@@ -68,5 +73,33 @@ public class Main {
         list.removeByIndex(removableIndex);
         System.out.println("Итоговый список:");
         list.printList();
+    }
+
+    public static void testComparator() {
+        List<Minion> minions = new ArrayList<>();
+
+        Minion firstAdditional = new Minion("Gachi", 1, 50);
+        Minion secondAdditional = new Minion("Gleb", 2, 20);
+        Minion thirdAdditional = new Minion("Fishka", 8, 11);
+
+        minions.add(0, FIFTH);
+        minions.add(0, SECOND);
+        minions.add(1, THIRD);
+        minions.add(3, FIRST);
+        minions.add(2, FOURTH);
+        minions.add(1, firstAdditional);
+        minions.add(0, secondAdditional);
+        minions.add(3, thirdAdditional);
+
+        System.out.println("Полученный список:");
+        for (Minion minion : minions) {
+            System.out.println(minion);
+        }
+
+        System.out.println("\nОтсортированный список:");
+        minions.sort(Minion::compareTo);
+        for (Minion minion : minions) {
+            System.out.println(minion);
+        }
     }
 }

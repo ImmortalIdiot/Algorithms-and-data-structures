@@ -1,6 +1,5 @@
 package com.immortalidiot;
 
-
 public class Minion implements Comparable<Minion> {
 
     private final String minionName;
@@ -20,13 +19,9 @@ public class Minion implements Comparable<Minion> {
         String eyeWord = (eyesCount == 1) ? " глазом " : " глазами ";
 
         String yearWord;
-        if (age % 10 == 1 && age % 100 != 11) {
-            yearWord = " год";
-        } else if (age % 10 >= 2 && age % 10 <= 4 && (age % 100 < 10 || age % 100 >= 20)) {
-            yearWord = " года";
-        } else {
-            yearWord = " лет";
-        }
+        if (age % 10 == 1 && age % 100 != 11) { yearWord = " год"; }
+        else if (age % 10 >= 2 && age % 10 <= 4 && (age % 100 < 10 || age % 100 >= 20)) { yearWord = " года"; }
+        else { yearWord = " лет"; }
 
         //return "Миньон " + minionName + " с " + eyesCount + eyeWord + "и возрастом " + age + yearWord;
         return minionName + ", " + eyesCount + ", " + age + ", " + handCount;
@@ -47,17 +42,16 @@ public class Minion implements Comparable<Minion> {
 
     @Override
     public int compareTo(Minion otherMinion) {
-
         String reversedThisName = new StringBuilder(this.minionName).reverse().toString();
         String reversedOtherName = new StringBuilder(otherMinion.minionName).reverse().toString();
+
         int nameComparing = reversedThisName.compareTo(reversedOtherName);
         if (nameComparing != 0) { return nameComparing; }
 
-        int lengthComparing = Integer.compare(otherMinion.minionName.length(), this.minionName.length());
+        int lengthComparing = Integer.compare(
+                this.minionName.length() - this.age,
+                otherMinion.minionName.length() - otherMinion.age);
         if (lengthComparing != 0) { return lengthComparing; }
-
-        int ageComparing = Integer.compare(otherMinion.age, this.age);
-        if (ageComparing != 0) { return ageComparing; }
 
         int thisSum = this.eyesCount + this.handCount;
         int otherSum = otherMinion.eyesCount + otherMinion.handCount;

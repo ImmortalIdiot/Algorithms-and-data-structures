@@ -60,9 +60,7 @@ public class CustomStack<T> implements Iterable<T> {
     }
 
     private void checkIsEmpty() {
-        if (isEmpty()) {
-            String EMPTY_STACK_MESSAGE = "Стек пустой";
-            throw new NoSuchElementException(EMPTY_STACK_MESSAGE); }
+        if (isEmpty()) { throw new NoSuchElementException("Стек пустой"); }
     }
 
     @SuppressWarnings("unchecked")
@@ -87,9 +85,7 @@ public class CustomStack<T> implements Iterable<T> {
 
         @Override
         public T next() {
-            if (!hasNext()) {
-                throw new NoSuchElementException();
-            }
+            if (!hasNext()) { throw new NoSuchElementException(); }
             return stack[index--];
         }
     }

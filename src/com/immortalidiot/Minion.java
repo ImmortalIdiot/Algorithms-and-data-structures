@@ -1,16 +1,18 @@
 package com.immortalidiot;
 
 
-public class Minion {
+public class Minion implements Comparable<Minion> {
 
     private final String minionName;
     private final int eyesCount;
     private final int age;
+    private final int handCount;
 
-    public Minion(String minionName, int eyesCount, int age) {
+    public Minion(String minionName, int eyesCount, int age, int handCount) {
         this.minionName = minionName;
         this.eyesCount = eyesCount;
         this.age = age;
+        this.handCount = handCount;
     }
 
     @Override
@@ -26,16 +28,39 @@ public class Minion {
             yearWord = " лет";
         }
 
-        return "Миньон " + minionName + " с " + eyesCount + eyeWord + "и возрастом " + age + yearWord;
+        //return "Миньон " + minionName + " с " + eyesCount + eyeWord + "и возрастом " + age + yearWord;
+        return minionName + ", " + eyesCount + ", " + age + ", " + handCount;
     }
 
-    public int compareTo(Minion otherMinion) {
+    public int oldCompareTo(Minion otherMinion) {
         int eyesComparing = Integer.compare(this.eyesCount, otherMinion.eyesCount);
         if (eyesComparing != 0) { return eyesComparing; }
 
         int ageComparing = Integer.compare(this.age, otherMinion.age);
         if (ageComparing != 0) { return ageComparing; }
 
+        int handCount = Integer.compare(this.handCount, otherMinion.handCount);
+        if (handCount != 0) { return handCount; }
+
         return this.minionName.compareTo(otherMinion.minionName);
+    }
+
+    @Override
+    public int compareTo(Minion otherMinion) {
+
+        String reversedThisName = new StringBuilder(this.minionName).reverse().toString();
+        String reversedOtherName = new StringBuilder(otherMinion.minionName).reverse().toString();
+        int nameComparing = reversedThisName.compareTo(reversedOtherName);
+        if (nameComparing != 0) { return nameComparing; }
+
+        int lengthComparing = Integer.compare(otherMinion.minionName.length(), this.minionName.length());
+        if (lengthComparing != 0) { return lengthComparing; }
+
+        int ageComparing = Integer.compare(otherMinion.age, this.age);
+        if (ageComparing != 0) { return ageComparing; }
+
+        int thisSum = this.eyesCount + this.handCount;
+        int otherSum = otherMinion.eyesCount + otherMinion.handCount;
+        return Integer.compare(thisSum, otherSum);
     }
 }

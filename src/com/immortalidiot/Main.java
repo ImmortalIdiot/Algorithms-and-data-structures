@@ -1,20 +1,22 @@
 package com.immortalidiot;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Main {
 
-    static final Minion FIRST = new Minion("Bob", 2, 5);
-    static final Minion SECOND = new Minion("Stuart", 14, 25);
-    static final Minion THIRD = new Minion("Kevin", 1, 17);
-    static final Minion FOURTH = new Minion("Rayan", 6, 22);
-    static final Minion FIFTH = new Minion("Fixer", 8, 9);
+    static final Minion FIRST = new Minion("Bob", 2, 5, 2);
+    static final Minion SECOND = new Minion("Stuart", 14, 25, 2);
+    static final Minion THIRD = new Minion("Kevin", 1, 17, 1);
+    static final Minion FOURTH = new Minion("Rayan", 6, 22, 4);
+    static final Minion FIFTH = new Minion("Fixer", 8, 9, 2);
 
     public static void main(String[] args) {
-        testStack();
-        testIterator();
-        testComparator();
+//        testStack();
+//        testIterator();
+//        testComparator();
+        comparatorTask();
     }
 
     public static void testStack() {
@@ -34,8 +36,10 @@ public class Main {
         System.out.println("\nУдалён " + minionStack.pop());
         System.out.println("Удалён " + minionStack.pop() + "\n");
 
-        System.out.println("Итоговый список:");
-        minionStack.printStack();
+        System.out.println("Демонстрация итератора:");
+        for (Minion minion : minionStack) {
+            System.out.println(minion);
+        }
     }
 
     public static void testIterator() {
@@ -65,7 +69,7 @@ public class Main {
 
         int replaceableIndex = 2;
         System.out.println("Заменяем " + list.getByIndex(replaceableIndex) + ":");
-        list.replaceAt(new Minion("Реинкарнат", 3, 8), replaceableIndex);
+        list.replaceAt(new Minion("Реинкарнат", 3, 8, 2), replaceableIndex);
         System.out.println("Новый миньон: " + list.getByIndex(replaceableIndex) + "\n");
 
         int removableIndex = 1;
@@ -78,9 +82,9 @@ public class Main {
     public static void testComparator() {
         List<Minion> minions = new ArrayList<>();
 
-        Minion firstAdditional = new Minion("Gachi", 1, 50);
-        Minion secondAdditional = new Minion("Gleb", 2, 20);
-        Minion thirdAdditional = new Minion("Fishka", 8, 11);
+        Minion firstAdditional = new Minion("Gachi", 1, 50, 2);
+        Minion secondAdditional = new Minion("Gleb", 2, 20, 2);
+        Minion thirdAdditional = new Minion("Fishka", 8, 11, 2);
 
         minions.add(0, FIFTH);
         minions.add(0, SECOND);
@@ -98,6 +102,55 @@ public class Main {
 
         System.out.println("\nОтсортированный список:");
         minions.sort(Minion::compareTo);
+        for (Minion minion : minions) {
+            System.out.println(minion);
+        }
+    }
+
+    public static boolean isBalanced(String s) {
+        CustomStack<Character> stack = new CustomStack<>();
+
+        for (char character : s.toCharArray()) {
+            if (character == '(' || character == '[') {
+                stack.push(character);
+            } else if(character == ')' || character == ']') {
+                if (stack.isEmpty()) { return false; }
+
+                char lastCharacter = stack.pop();
+                if (!isMatchingPair(lastCharacter, character)) { return false; }
+            }
+        }
+
+        return stack.isEmpty();
+    }
+
+    private static boolean isMatchingPair(char opened, char closed) {
+        return (opened == '(' && closed == ')') || (opened == '[' && closed == ']');
+    }
+
+    private static void stackTask() {
+        String expression = "[()]";
+        if (isBalanced(expression)) {
+            System.out.println("Скобки расставлены верно");
+        } else {
+            System.out.println("Скобки расставлены неверно");
+        }
+    }
+
+    private static void comparatorTask() {
+        // имя - обратный алфавитный, количество символов в имени - возраст (убывание), сумма рук и глаз (возрастание)
+        Minion[] minions = {
+            new Minion("Alex", 2, 5, 2),
+            new Minion("Alex", 1, 7, 2),
+            new Minion("Carl", 2, 8, 2),
+            new Minion("Dave", 2, 8, 2),
+            new Minion("Dave", 1, 8, 2),
+            new Minion("Zeus", 2, 5, 2),
+            new Minion("Zeus", 1, 4, 3)
+        };
+
+        Arrays.sort(minions);
+
         for (Minion minion : minions) {
             System.out.println(minion);
         }

@@ -33,6 +33,12 @@ public class DoubledLinkedList<ObjectType> {
             current = current.next;
             return data;
         }
+
+        public ObjectType previous() {
+            if (!hasPrevious()) { throw new NoSuchElementException("No previous element"); }
+            current = current.previous;
+            return current.data;
+        }
     }
 
     public Iterator iterator() {

@@ -138,15 +138,15 @@ public class Main {
     }
 
     private static void comparatorTask() {
-        // имя - обратный алфавитный, количество символов в имени - возраст (убывание), сумма рук и глаз (возрастание)
+        // имя - алфавитный, количество символов в имени - возраст (убывание), сумма рук и глаз (возрастание)
         Minion[] minions = {
-            new Minion("Alex", 2, 5, 2),
-            new Minion("Alex", 1, 7, 2),
-            new Minion("Carl", 2, 8, 2),
-            new Minion("Dave", 2, 8, 2),
+            new Minion("Carl", 2, 5, 2),
+            new Minion("Zeus", 1, 7, 2),
+            new Minion("Alex", 2, 8, 2),
+            new Minion("Zeus", 2, 8, 2),
             new Minion("Dave", 1, 8, 2),
-            new Minion("Zeus", 2, 5, 2),
-            new Minion("Zeus", 1, 4, 3)
+            new Minion("Alex", 2, 5, 2),
+            new Minion("Dave", 1, 4, 3)
         };
 
         Arrays.sort(minions);

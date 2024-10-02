@@ -13,9 +13,10 @@ public class Main {
     static final Minion FIFTH = new Minion("Fixer", 8, 9, 2);
 
     public static void main(String[] args) {
-//        testStack();
-//        testIterator();
-//        testComparator();
+        testStack();
+        stackTask("[()]");
+        testIterator();
+        testComparator();
         comparatorTask();
     }
 
@@ -128,8 +129,7 @@ public class Main {
         return (opened == '(' && closed == ')') || (opened == '[' && closed == ']');
     }
 
-    private static void stackTask() {
-        String expression = "[()]";
+    private static void stackTask(String expression) {
         if (isBalanced(expression)) {
             System.out.println("Скобки расставлены верно");
         } else {

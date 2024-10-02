@@ -42,10 +42,8 @@ public class Minion implements Comparable<Minion> {
 
     @Override
     public int compareTo(Minion otherMinion) {
-        String reversedThisName = new StringBuilder(this.minionName).reverse().toString();
-        String reversedOtherName = new StringBuilder(otherMinion.minionName).reverse().toString();
-
-        int nameComparing = reversedThisName.compareTo(reversedOtherName);
+        // имя - алфавитный, количество символов в имени - возраст (убывание), сумма рук и глаз (возрастание)
+        int nameComparing = this.minionName.compareTo(otherMinion.minionName);
         if (nameComparing != 0) { return nameComparing; }
 
         int lengthComparing = Integer.compare(

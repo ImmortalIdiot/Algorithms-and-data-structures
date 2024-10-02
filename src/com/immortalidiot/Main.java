@@ -146,6 +146,7 @@ public class Main {
             new Minion("Zeus", 2, 8, 2),
             new Minion("Dave", 1, 8, 2),
             new Minion("Alex", 2, 5, 2),
+            new Minion("Alex", 2, 5, 4),
             new Minion("Dave", 1, 4, 3)
         };
 

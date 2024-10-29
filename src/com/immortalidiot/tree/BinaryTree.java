@@ -1,5 +1,7 @@
 package com.immortalidiot.tree;
 
+import com.immortalidiot.CustomStack;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -113,6 +115,27 @@ public class BinaryTree<E> implements AbstractBinaryTree<E> {
         if (right != null) {
             right.forEachInOrder(consumer);
         }
+    }
+
+    @Override
+    public List<AbstractBinaryTree<E>> depthFirstSearch() {
+        List<AbstractBinaryTree<E>> result = new ArrayList<>();
+        CustomStack<AbstractBinaryTree<E>> stack = new CustomStack<>();
+        stack.push(this);
+
+        while (!stack.isEmpty()) {
+            AbstractBinaryTree<E> current = stack.pop();
+            result.add(current);
+
+            if (current.getRight() != null) {
+                stack.push(current.getRight());
+            }
+            if (current.getLeft() != null) {
+                stack.push(current.getLeft());
+            }
+        }
+
+        return result;
     }
 
     public void setLeft(BinaryTree<E> left) {

@@ -3,7 +3,9 @@ package com.immortalidiot.tree;
 import com.immortalidiot.CustomStack;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.function.Consumer;
 
 public class BinaryTree<E> implements AbstractBinaryTree<E> {
@@ -132,6 +134,28 @@ public class BinaryTree<E> implements AbstractBinaryTree<E> {
             }
             if (current.getLeft() != null) {
                 stack.push(current.getLeft());
+            }
+        }
+
+        return result;
+    }
+
+    @Override
+    public List<AbstractBinaryTree<E>> breadthFirstSearch() {
+        List<AbstractBinaryTree<E>> result = new ArrayList<>();
+        Queue<AbstractBinaryTree<E>> queue = new LinkedList<>();
+        queue.add(this);
+
+        while (!queue.isEmpty()) {
+            AbstractBinaryTree<E> current = queue.poll();
+            result.add(current);
+
+            if (current.getLeft() != null) {
+                queue.add(current.getLeft());
+            }
+
+            if (current.getRight() != null) {
+                queue.add(current.getRight());
             }
         }
 

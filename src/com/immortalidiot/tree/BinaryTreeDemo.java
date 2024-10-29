@@ -37,5 +37,13 @@ public class BinaryTreeDemo {
         System.out.println("Печать элементов в порядке (in-order) с использованием Consumer:");
         root.forEachInOrder(element -> System.out.print(element + " "));
         System.out.println();
+
+        System.out.println("Обход в глубину (DFS):");
+        root.depthFirstSearch().forEach(node -> System.out.print(node.getKey() + " "));
+        System.out.println();
+
+        System.out.println("Обход в ширину (BFS):");
+        root.breadthFirstSearch().forEach(node -> System.out.print(node.getKey() + " "));
+        System.out.println();
     }
 }

@@ -1,4 +1,4 @@
-package com.immortalidiot.tree;
+package com.immortalidiot.tree.bt;
 
 public class BinaryTreeDemo {
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package com.immortalidiot.tree;
+package com.immortalidiot.tree.bt;
 
 import java.util.List;
 import java.util.function.Consumer;

@@ -1,4 +1,4 @@
-package com.immortalidiot.tree;
+package com.immortalidiot.tree.bt;
 
 import com.immortalidiot.CustomStack;
 

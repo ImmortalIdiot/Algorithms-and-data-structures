@@ -1,5 +1,8 @@
 package com.immortalidiot.tree.bst;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BinarySearchTree<E extends Comparable<E>> implements AbstractBinarySearchTree<E> {
 
     private Node<E> root;
@@ -120,23 +123,78 @@ public class BinarySearchTree<E extends Comparable<E>> implements AbstractBinary
         return ((Integer) node.value) + Math.max(leftSum, rightSum);
     }
 
-    public String toVisualizedString() {
-        StringBuilder sb = new StringBuilder();
-        visualizeTree(root, 0, sb);
+    public String toVisualizedTree() {
+        if (root == null) return "";
 
-        return sb.toString();
-    }
+        StringBuilder result = new StringBuilder();
+        List<List<String>> lines = new ArrayList<>();
+        List<Node<E>> currentLevel = new ArrayList<>();
+        List<Node<E>> nextLevel = new ArrayList<>();
+        int widestNode = 0;
+        int nodesInLevel = 1;
 
-    private void visualizeTree(Node<E> node, int depth, StringBuilder sb) {
-        if (node == null) {
-            return;
+        currentLevel.add(root);
+
+        while (nodesInLevel > 0) {
+            List<String> line = new ArrayList<>();
+            nodesInLevel = 0;
+
+            for (Node<E> node : currentLevel) {
+                if (node == null) {
+                    line.add(null);
+                    nextLevel.add(null);
+                    nextLevel.add(null);
+                } else {
+                    String nodeValue = String.valueOf(node.value);
+                    line.add(nodeValue);
+                    widestNode = Math.max(widestNode, nodeValue.length());
+
+                    nextLevel.add(node.leftChild);
+                    nextLevel.add(node.rightChild);
+                    if (node.leftChild != null) nodesInLevel++;
+                    if (node.rightChild != null) nodesInLevel++;
+                }
+            }
+
+            lines.add(line);
+            currentLevel = new ArrayList<>(nextLevel);
+            nextLevel.clear();
         }
 
-        visualizeTree(node.rightChild, depth + 1, sb);
+        widestNode += widestNode % 2;
+        int perPiece = lines.get(lines.size() - 1).size() * (widestNode + String.valueOf(root.value).length());
 
-        sb.append(" ".repeat(depth * 4));
-        sb.append(node.value).append("\n");
+        for (int i = 0; i < lines.size(); i++) {
+            List<String> line = lines.get(i);
+            int halfPieceWidth = (int) Math.floor(perPiece / 2f) - 1;
 
-        visualizeTree(node.leftChild, depth + 1, sb);
+            if (i > 0) {
+                for (int j = 0; j < line.size(); j++) {
+                    char connector = ' ';
+                    result.append(connector);
+
+                    if (line.get(j) == null) {
+                        result.append(" ".repeat(perPiece - 1));
+                    } else {
+                        result.append((" ").repeat(halfPieceWidth))
+                                .append(j % 2 == 0 ? "/" : "\\")
+                                .append((" ").repeat(halfPieceWidth));
+                    }
+                }
+                result.append("\n");
+            }
+
+            for (String nodeValue : line) {
+                if (nodeValue == null) nodeValue = "";
+                int leftPad = (int) Math.ceil((perPiece - nodeValue.length()) / 2.0);
+                int rightPad = (int) Math.floor((perPiece - nodeValue.length()) / 2.0);
+
+                result.append(" ".repeat(leftPad)).append(nodeValue).append(" ".repeat(rightPad));
+            }
+            result.append("\n");
+
+            perPiece /= 2;
+        }
+        return result.toString();
     }
 }

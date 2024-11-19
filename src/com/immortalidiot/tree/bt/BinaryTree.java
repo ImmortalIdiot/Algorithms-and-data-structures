@@ -43,17 +43,15 @@ public class BinaryTree<E> implements AbstractBinaryTree<E> {
     @Override
     public String asIndentedPreOrder(int indent) {
         StringBuilder sb = new StringBuilder();
-        sb.append("  ".repeat(Math.max(0, indent)));
-        sb.append(key).append("\n");
+        String indentString = " ".repeat(indent * 2);
+        sb.append(indentString).append(this.key).append("\n");
 
-        if (left != null) {
-            sb.append(left.asIndentedPreOrder(indent + 1));
+        if (this.left != null) {
+            sb.append(this.left.asIndentedPreOrder(indent + 1));
         }
-
-        if (right != null) {
-            sb.append(right.asIndentedPreOrder(indent + 1));
+        if (this.right != null) {
+            sb.append(this.right.asIndentedPreOrder(indent + 1));
         }
-
         return sb.toString();
     }
 

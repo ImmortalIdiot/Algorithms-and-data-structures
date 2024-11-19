@@ -25,9 +25,6 @@ public class BSTDemo {
         System.out.println("Дерево содержит 7: " + bst.contains(7));
         System.out.println("Дерево содержит 20: " + bst.contains(20));
 
-        AbstractBinarySearchTree<Integer> branch = bst.search(5);
-        System.out.println("Значение корня поддерева: " + (branch != null ? branch.getValue() : "null"));
-
         System.out.println("Максимальная сумма пути в дереве: " + bst.maxPathSum());
 
         System.out.println(bst.toVisualizedTree());

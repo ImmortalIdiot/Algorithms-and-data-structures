@@ -2,10 +2,7 @@ package com.immortalidiot.tree.bt;
 
 import com.immortalidiot.CustomStack;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 import java.util.function.Consumer;
 
 public class BinaryTree<E> implements AbstractBinaryTree<E> {
@@ -43,16 +40,41 @@ public class BinaryTree<E> implements AbstractBinaryTree<E> {
     @Override
     public String asIndentedPreOrder(int indent) {
         StringBuilder sb = new StringBuilder();
-        String indentString = " ".repeat(indent * 2);
-        sb.append(indentString).append(this.key).append("\n");
+        int treeHeight = getHeight(this);
+        int maxWidth = (int) Math.pow(2, treeHeight) - 1;
+        List<List<String>> levels = new ArrayList<>();
 
-        if (this.left != null) {
-            sb.append(this.left.asIndentedPreOrder(indent + 1));
+        for (int i = 0; i < treeHeight; i++) {
+            List<String> level = new ArrayList<>(Collections.nCopies(maxWidth, "   "));
+            levels.add(level);
         }
-        if (this.right != null) {
-            sb.append(this.right.asIndentedPreOrder(indent + 1));
+
+        fillLevels(this, levels, 0, 0, maxWidth - 1);
+
+        for (List<String> level : levels) {
+            for (String node : level) {
+                sb.append(node);
+            }
+            sb.append("\n");
         }
+
         return sb.toString();
+    }
+
+    private void fillLevels(BinaryTree<E> node, List<List<String>> levels, int level, int left, int right) {
+        if (node == null || level >= levels.size()) {
+            return;
+        }
+        int mid = (left + right) / 2;
+        levels.get(level).set(mid, String.format("%3s", node.key));
+
+        fillLevels(node.left, levels, level + 1, left, mid - 1);
+        fillLevels(node.right, levels, level + 1, mid + 1, right);
+    }
+
+    private int getHeight(BinaryTree<E> node) {
+        if (node == null) return 0;
+        return 1 + Math.max(getHeight(node.left), getHeight(node.right));
     }
 
     @Override

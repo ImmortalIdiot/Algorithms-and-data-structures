@@ -25,11 +25,7 @@ public class PriorityQueue<E extends Comparable<E>> implements AbstractQueue<E> 
 
     @Override
     public E peek() {
-        if (root == null) {
-            return null;
-        }
-
-        return findMax(root).getKey();
+        return root == null ? null : findMax(root).getKey();
     }
 
     @Override

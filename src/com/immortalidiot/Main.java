@@ -1,5 +1,8 @@
 package com.immortalidiot;
 
+import com.immortalidiot.list.DoubledLinkedList;
+import com.immortalidiot.stack.CustomStack;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

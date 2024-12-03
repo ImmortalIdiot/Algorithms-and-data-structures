@@ -1,6 +1,6 @@
 package com.immortalidiot.tree.bt;
 
-import com.immortalidiot.CustomStack;
+import com.immortalidiot.stack.CustomStack;
 
 import java.util.*;
 import java.util.function.Consumer;

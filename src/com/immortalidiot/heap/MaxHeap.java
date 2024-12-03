@@ -99,4 +99,27 @@ public class MaxHeap<E extends Comparable<E>> implements Heap<E> {
 
         return null;
     }
+
+    public void printAll() {
+        if (root == null) {
+            System.out.println("Heap is empty");
+            return;
+        }
+
+        Queue<BinaryTree<E>> queue = new LinkedList<>();
+        queue.add(root);
+
+        while (!queue.isEmpty()) {
+            BinaryTree<E> current = queue.poll();
+            System.out.print(current.getKey() + "\t");
+
+            if (current.getLeft() != null) {
+                queue.add((BinaryTree<E>) current.getLeft());
+            }
+
+            if (current.getRight() != null) {
+                queue.add((BinaryTree<E>) current.getRight());
+            }
+        }
+    }
 }

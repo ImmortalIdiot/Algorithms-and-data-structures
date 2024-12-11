@@ -5,7 +5,7 @@ import com.immortalidiot.stack.CustomStack;
 import java.util.*;
 import java.util.function.Consumer;
 
-public class BinaryTree<E> implements AbstractBinaryTree<E> {
+public class BinaryTree<E extends Integer> implements AbstractBinaryTree<E> {
 
     private E key;
     private BinaryTree<E> left;
@@ -188,5 +188,26 @@ public class BinaryTree<E> implements AbstractBinaryTree<E> {
 
     public void setRight(BinaryTree<E> right) {
         this.right = right;
+    }
+
+    //14 вариант: Метод для поиска максимальной суммы пути в бинарном дереве
+    public int maxPathSum() {
+        int[] maxSum = new int[]{Integer.MIN_VALUE};
+        calculateMaxPathSum(this, maxSum);
+        return maxSum[0];
+    }
+
+    private int calculateMaxPathSum(BinaryTree<E> node, int[] maxSum) {
+        if (node == null) {
+            return 0;
+        }
+
+        int leftSum = Math.max(0, calculateMaxPathSum(node.left, maxSum));
+        int rightSum = Math.max(0, calculateMaxPathSum(node.right, maxSum));
+
+        int currentSum = leftSum + rightSum + node.key.intValue();
+        maxSum[0] = Math.max(maxSum[0], currentSum);
+
+        return node.key.intValue() + Math.max(leftSum, rightSum);
     }
 }

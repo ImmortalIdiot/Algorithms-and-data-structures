@@ -19,6 +19,8 @@ public class BinaryTreeDemo {
         rightChild.setLeft(new BinaryTree<>(5));
         rightChild.setRight(new BinaryTree<>(7));
 
+        System.out.println(root.maxPathSum());
+
         System.out.println("Дерево в виде строки с отступами:");
         System.out.println(root.asIndentedPreOrder(0));
 

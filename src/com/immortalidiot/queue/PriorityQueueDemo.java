@@ -1,22 +1,84 @@
 package com.immortalidiot.queue;
 
+import java.util.Random;
+
 public class PriorityQueueDemo {
 
     public static void main(String[] args) {
-        AbstractQueue<Integer> priorityQueue = new PriorityQueue<>();
+        System.out.println("-------------------------------------------------");
+        System.out.println("Создадим очередь с размером 10_000 на массиве");
+        AbstractQueueImpl<Integer> arrayPriorityQueue = new AbstractQueueImpl<>(10_000);
 
-        priorityQueue.add(10);
-        priorityQueue.add(20);
-        priorityQueue.add(5);
-        priorityQueue.add(30);
+        Random random = new Random();
+        int n = 10_000;
+        int[] randomArray = new int[n];
 
-        System.out.println("Size: " + priorityQueue.size());
-        System.out.println("Peek: " + priorityQueue.peek());
-        System.out.println("First poll: " + priorityQueue.poll());
-        System.out.println("Second poll: " + priorityQueue.poll());
-        System.out.println("Third poll: " + priorityQueue.poll());
-        System.out.println("Fourth poll: " + priorityQueue.poll());
-        System.out.println("Peek: " + priorityQueue.peek());
-        System.out.println("Size: " + priorityQueue.size());
+        for (int i = 0; i < n; i++) {
+            randomArray[i] = random.nextInt(-1000, 1000);
+        }
+
+        System.out.println("-------------------------------------------------");
+        System.out.println("Добавим элементы в очередь на массиве");
+        long startTime = System.currentTimeMillis();
+
+        for (int i = 0; i < n; i++) {
+            arrayPriorityQueue.add(randomArray[i]);
+        }
+
+        long endTime = System.currentTimeMillis();
+        System.out.println("Время выполнения add на массиве: " + (endTime - startTime) + " мс");
+
+        System.out.println("-------------------------------------------------");
+        System.out.println("Получим максимальный элемент из очереди на массиве без удаления");
+        startTime = System.currentTimeMillis();
+        System.out.println("Максимальный элемент: " + arrayPriorityQueue.peek());
+        endTime = System.currentTimeMillis();
+        System.out.println("Время выполнения peek на массиве: " + (endTime - startTime) + " мс");
+
+        System.out.println("-------------------------------------------------");
+        System.out.println("Удалим элементы из очереди на массиве");
+        startTime = System.currentTimeMillis();
+
+        while (arrayPriorityQueue.size() > 0) {
+            arrayPriorityQueue.poll();
+        }
+
+        endTime = System.currentTimeMillis();
+        System.out.println("Время выполнения poll на массиве: " + (endTime - startTime) + " мс");
+
+        System.out.println("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
+
+        System.out.println("\n-------------------------------------------------");
+        System.out.println("Создадим очередь на дереве");
+        PriorityQueue<Integer> treePriorityQueue = new PriorityQueue<>();
+
+        System.out.println("-------------------------------------------------");
+        System.out.println("Добавим элементы в очередь на дереве");
+        startTime = System.currentTimeMillis();
+
+        for (int i = 0; i < n; i++) {
+            treePriorityQueue.add(randomArray[i]);
+        }
+
+        endTime = System.currentTimeMillis();
+        System.out.println("Время выполнения add на дереве: " + (endTime - startTime) + " мс");
+
+        System.out.println("-------------------------------------------------");
+        System.out.println("Получим максимальный элемент из очереди на дереве без удаления");
+        startTime = System.currentTimeMillis();
+        System.out.println("Максимальный элемент: " + treePriorityQueue.peek());
+        endTime = System.currentTimeMillis();
+        System.out.println("Время выполнения peek на дереве: " + (endTime - startTime) + " мс");
+
+        System.out.println("-------------------------------------------------");
+        System.out.println("Удалим элементы из очереди на дереве");
+        startTime = System.currentTimeMillis();
+
+        while (treePriorityQueue.size() > 0) {
+            treePriorityQueue.poll();
+        }
+
+        endTime = System.currentTimeMillis();
+        System.out.println("Время выполнения poll на дереве: " + (endTime - startTime) + " мс");
     }
 }
